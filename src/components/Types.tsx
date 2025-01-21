@@ -1,3 +1,10 @@
+export type CalendarProps = {
+  startHour: number,
+  endHour: number,
+  startDay: number,
+  numberOfDays: number,
+}
+
 export type TimeSlotKind = 'lecture' | 'project' | 'exercises';
 
 export type TimeSlot = {
