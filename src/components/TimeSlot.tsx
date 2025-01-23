@@ -15,7 +15,6 @@ const TimeSlotComponent = (
     return null
   }
 
-
   const daylength = props.endHour - props.startHour
   const corr = 0.9 + 1 / (10 * daylength) // top alignment correction
   const height = slot.duration / daylength * 100 - 3
@@ -34,9 +33,9 @@ const TimeSlotComponent = (
   }
 
   return (
-    <div style={style} className="flex flex-col items-center justify-center absolute rounded">
-      <div className="text-white text-center">{course.name}</div>
-      <div className="text-white text-center">{slot.kind}</div>
+    <div style={style} className="flex flex-col items-start justify-start absolute rounded">
+      <div className="text-white font-semibold">{course.name}</div>
+      <div className="text-white">{slot.kind}</div>
     </div>
   );
 }

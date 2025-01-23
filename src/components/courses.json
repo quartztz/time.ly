@@ -93,7 +93,7 @@
   {
     "name": "Press and Digital History",
     "code": "HUM483",
-    "color": "#FF00FF",
+    "color": "rgb(160, 160, 160)",
     "slots": [
       {
         "startTime": 16,

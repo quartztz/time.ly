@@ -1,11 +1,11 @@
 ---
 import Calendar from "@/components/Calendar";
-import Sidebar from "@/components/Sidebar.astro";
+import { Sidebar } from "@/components/Sidebar";
 import Main from "@/layouts/Main.astro";
 import "@/styles/globals.css";
+import App from "@/components/App";
 ---
 
 <Main>
-	<Sidebar />
-	<Calendar />
+	<App client:only="react" />
 </Main>

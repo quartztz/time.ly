@@ -1,6 +1,7 @@
 import {
   Card,
   CardContent,
+  CardHeader
 } from "@/components/ui/card";
 import * as c from "@/components/Common";
 import { courseSchema } from './Types';
@@ -10,7 +11,7 @@ import coursesData from './courses.json';
 
 const Calendar = ({
   startHour = 8,
-  endHour = 16,
+  endHour = 20,
   startDay = 1,
   numberOfDays = 5,
 }) => {
@@ -38,30 +39,35 @@ const Calendar = ({
   }
 
   return (
-    <Card id="calendar" className="w-full h-full flex justify-center items-center bg-white p-4">
-      <CardContent className="w-full h-full flex flex-row">
-        <div id="timecol" className="w-1/8 h-full flex flex-col px-4 border-x-[1px] border-slate-200">
-          <div className="h-20 flex-none w-full flex justify-center items-center">
-            Time
-          </div>
-          {hours.map((e) => (
-            <div className="w-full h-full flex justify-center items-start">
-              {e}:00
+    <div className="w-full h-full flex flex-col">
+      <Card id="calendar" className="w-full h-full flex flex-col justify-center items-center bg-white p-4">
+        <CardHeader className="w-full flex items-center py-2 font-semibold">
+          quartztz' timetable
+        </CardHeader>
+        <CardContent className="w-full h-full flex flex-row">
+          <div id="timecol" className="w-1/8 h-full flex flex-col px-4">
+            <div className="h-20 flex-none w-full flex justify-center items-center">
+              Time
             </div>
-          ))}
-        </div>
-        <div id="cal" className={`px-4 w-full h-full grid ${gridLayouts[numberOfDays]}`}>
-          {displayDays.map((dayName: string, dayIdx: number) => (
-            DayComponent(
-              dayName,
-              dayIdx,
-              courses,
-              { startHour, endHour, startDay, numberOfDays }
-            )
-          ))}
-        </div>
-      </CardContent>
-    </Card >
+            {hours.map((e) => (
+              <div className="w-full h-full flex justify-center items-start">
+                {e}:00
+              </div>
+            ))}
+          </div>
+          <div id="cal" className={`px-4 w-full h-full grid ${gridLayouts[numberOfDays]}`}>
+            {displayDays.map((dayName: string, dayIdx: number) => (
+              DayComponent(
+                dayName,
+                dayIdx,
+                courses,
+                { startHour, endHour, startDay, numberOfDays }
+              )
+            ))}
+          </div>
+        </CardContent>
+      </Card >
+    </div>
   );
 };
 

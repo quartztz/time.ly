@@ -16,10 +16,10 @@ export const DayComponent = (
   console.log(`day: ${name}, courses: ${daySlots.map((e) => `\n\t${e.course.name} at ${e.slot.startTime} for ${e.slot.duration} conflicting ${e.slot.conflicts}`)}`)
 
   return (
-    <div id="day" className="w-full h-full px-2 border-r-[1px] border-slate-200" >
+    <div id="day" className="w-full h-full px-2">
       <div className="w-full h-20 flex justify-center items-center">
         {name}
-      </div>
+      </div >
       <div className="w-full h-full relative">
         {
           (() => {
