@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Foundations of Software",
+    "code": "CS452",
+    "color": "rgb(80, 150, 150)",
+    "slots": [
+      {
+        "startTime": 8,
+        "duration": 3,
+        "day": 0,
+        "kind": "lecture",
+        "conflicts": 0
+      },
+      {
+        "startTime": 8,
+        "duration": 2,
+        "day": 1,
+        "kind": "exercises",
+        "conflicts": 2
+      },
+      {
+        "startTime": 10,
+        "duration": 2,
+        "day": 1,
+        "kind": "project",
+        "conflicts": 2
+      }
+    ]
+  },
+  {
+    "name": "Interactive Theorem Proving",
+    "code": "CS428",
+    "color": "rgb(160, 70, 60)",
+    "slots": [
+      {
+        "startTime": 8,
+        "duration": 2,
+        "day": 1,
+        "kind": "lecture",
+        "conflicts": 2
+      },
+      {
+        "startTime": 10,
+        "duration": 1,
+        "day": 1,
+        "kind": "exercises",
+        "conflicts": 2
+      },
+      {
+        "startTime": 13,
+        "duration": 2,
+        "day": 3,
+        "kind": "exercises",
+        "conflicts": 3
+      }
+    ]
+  },
+  {
+    "name": "Modern Natural Language Processing",
+    "code": "CS552",
+    "color": "rgb(90, 160, 60)",
+    "slots": [
+      {
+        "startTime": 11,
+        "duration": 2,
+        "day": 2,
+        "kind": "lecture",
+        "conflicts": 0
+      },
+      {
+        "startTime": 13,
+        "duration": 1,
+        "day": 2,
+        "kind": "exercises",
+        "conflicts": 0
+      },
+      {
+        "startTime": 13,
+        "duration": 1,
+        "day": 3,
+        "kind": "lecture",
+        "conflicts": 3
+      },
+      {
+        "startTime": 14,
+        "duration": 2,
+        "day": 3,
+        "kind": "project",
+        "conflicts": 3
+      }
+    ]
+  },
+  {
+    "name": "Press and Digital History",
+    "code": "HUM483",
+    "color": "#FF00FF",
+    "slots": [
+      {
+        "startTime": 16,
+        "duration": 3,
+        "day": 2,
+        "kind": "lecture",
+        "conflicts": 0
+      }
+    ]
+  },
+  {
+    "name": "Advanced Compiler Construction",
+    "code": "CS420",
+    "color": "rgb(160, 100, 160)",
+    "slots": [
+      {
+        "startTime": 8,
+        "duration": 2,
+        "day": 3,
+        "kind": "lecture",
+        "conflicts": 0
+      },
+      {
+        "startTime": 10,
+        "duration": 1,
+        "day": 3,
+        "kind": "exercises",
+        "conflicts": 0
+      }
+    ]
+  }
+]

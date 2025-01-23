@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export type CalendarProps = {
   startHour: number,
   endHour: number,
@@ -6,14 +8,6 @@ export type CalendarProps = {
 }
 
 export type TimeSlotKind = 'lecture' | 'project' | 'exercises';
-
-export type TimeSlot = {
-  startTime: number, // float in [0, 24[ 
-  duration: number, // float in [0.25, 24 - start[
-  day: number, // int in [0, 6]
-  kind: TimeSlotKind, // enum
-  conflicts: number,  // int, < 4
-};
 
 export type TimeSlotStyle = { // all strings should be validated for correct format.
   width: string,
@@ -24,9 +18,21 @@ export type TimeSlotStyle = { // all strings should be validated for correct for
   "background-color": string, // as defined by course color
 };
 
-export type Course = {
-  name: string, // non-empty string
-  code: string | undefined, // optional
-  color: string, // validated to hex color, could become an array
-  slots: TimeSlot[],
-};
+const slotSchema = z.object({
+  startTime: z.number(),
+  duration: z.number(),
+  day: z.number(),
+  kind: z.string(),
+  conflicts: z.number(),
+});
+
+export type TimeSlot = z.infer<typeof slotSchema>;
+
+export const courseSchema = z.object({
+  name: z.string(),
+  code: z.string().optional(),
+  color: z.string(),
+  slots: z.array(slotSchema),
+});
+
+export type Course = z.infer<typeof courseSchema>;
