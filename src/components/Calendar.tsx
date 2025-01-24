@@ -29,8 +29,9 @@ const Calendar = ({
   const courses: Course[] = coursesData.map(course => courseSchema.parse(course));
 
   const gridLayouts: { [key: number]: string } = {
+    1: "grid-cols-1",
+    3: "grid-cols-3",
     5: "grid-cols-5",
-    6: "grid-cols-6",
     7: "grid-cols-7",
   };
 

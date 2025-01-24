@@ -19,16 +19,17 @@ enum SidebarState {
   Course = "course"
 }
 
-interface ConfigHandler {
+interface SidebarProps {
   config: CalendarProps;
   onConfigChange?: (config: CalendarProps) => void;
+  open?: boolean;
 }
 
-export const Sidebar = ({ config, onConfigChange }: ConfigHandler) => {
+export const Sidebar = ({ config, onConfigChange, open }: SidebarProps) => {
 
   let [state, setState] = useState(SidebarState.General)
 
-  const getVariant = (id: string): "outline" | "ghost" => {
+  const getButtonVariant = (id: string): "outline" | "ghost" => {
     console.log(id, state)
     console.log(id === state)
     return (id === state) ?
@@ -37,14 +38,16 @@ export const Sidebar = ({ config, onConfigChange }: ConfigHandler) => {
   };
 
   return (
-    <div className="w-1/3 max-w-[400px] h-full flex flex-col gap-2">
+    <div className={`max-w-[400px] 
+      h-full flex flex-col gap-2 transition-all duration-150 ease-in-out ${open ? "w-1/3" : "w-0 [&>*]:hidden"}`}>
+
       <div className="w-full grid grid-cols-2 p-2 gap-2">
-        <Button id="general" variant={`${getVariant("general")}`} onClick={() => setState(
+        <Button id="general" variant={`${getButtonVariant("general")}`} onClick={() => setState(
           SidebarState.General
         )}>
           General
         </Button>
-        <Button id="course" variant={`${getVariant("course")}`} onClick={() => setState(
+        <Button id="course" variant={`${getButtonVariant("course")}`} onClick={() => setState(
           SidebarState.Course
         )}>
           Course
@@ -76,8 +79,9 @@ export const Sidebar = ({ config, onConfigChange }: ConfigHandler) => {
                       <SelectValue placeholder="5" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="1">1</SelectItem>
+                      <SelectItem value="3">3</SelectItem>
                       <SelectItem value="5">5</SelectItem>
-                      <SelectItem value="6">6</SelectItem>
                       <SelectItem value="7">7</SelectItem>
                     </SelectContent>
                   </Select>
