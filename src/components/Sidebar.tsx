@@ -89,6 +89,7 @@ export const Sidebar = ({ config, onConfigChange }: ConfigHandler) => {
                   <input
                     type="number"
                     min="6"
+                    max="24"
                     className="w-full rounded border border-slate-200 p-2"
                     value={config.startHour}
                     onChange={(e) => onConfigChange && onConfigChange({
@@ -103,6 +104,7 @@ export const Sidebar = ({ config, onConfigChange }: ConfigHandler) => {
                   <input
                     type="number"
                     min="6"
+                    max="24"
                     className="w-full rounded border border-slate-200 p-2"
                     value={config.endHour}
                     onChange={(e) => onConfigChange && onConfigChange({

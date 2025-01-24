@@ -44,7 +44,7 @@ const Calendar = ({
         <CardHeader className="w-full flex items-center py-2 font-semibold">
           quartztz' timetable
         </CardHeader>
-        <CardContent className="w-full h-full flex flex-row">
+        <CardContent className="w-full h-full flex flex-row overflow-hidden">
           <div id="timecol" className="w-1/8 h-full flex flex-col px-4">
             <div className="h-20 flex-none w-full flex justify-center items-center">
               Time
