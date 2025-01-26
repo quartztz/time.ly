@@ -13,21 +13,11 @@ const App = () => {
     numberOfDays: 5,
   });
 
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
   return (
     <>
-      <Button
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        variant={sidebarOpen ? "default" : "outline"}
-        className="fixed bottom-4 left-4 rounded-md h-10 w-fit"
-      >
-        toggle sidebar
-      </Button >
       <Sidebar
         config={calendarConfig}
-        onConfigChange={(config: CalendarConfig) => setCalendarConfig(config)}
-        open={sidebarOpen} />
+        onConfigChange={(config: CalendarConfig) => setCalendarConfig(config)} />
       <Calendar config={calendarConfig} />
     </>
   )
