@@ -39,7 +39,8 @@ export const Sidebar = ({ config, onConfigChange, open }: SidebarProps) => {
 
   return (
     <div className={`max-w-[400px] 
-      h-full flex flex-col gap-2 transition-all duration-150 ease-in-out ${open ? "w-1/3" : "w-0 [&>*]:hidden"}`}>
+      h-full flex flex-col gap-2 transition-all duration-150 ease-in-out 
+      ${open ? "w-1/3 visible" : "w-0 [&:*]:hidden invisible"}`}>
 
       <div className="w-full grid grid-cols-2 p-2 gap-2">
         <Button id="general" variant={`${getButtonVariant("general")}`} onClick={() => setState(
