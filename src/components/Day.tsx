@@ -1,4 +1,4 @@
-import { type Course, type CalendarProps } from './Types';
+import { type Course, type CalendarConfig } from './Types';
 import type { JSX } from "react";
 import TimeSlotComponent from './TimeSlot';
 
@@ -6,7 +6,7 @@ export const DayComponent = (
   name: string,
   idx: number,
   courses: Course[],
-  config: CalendarProps
+  config: CalendarConfig
 ): JSX.Element => {
   const daySlots = courses
     .flatMap((course) => course.slots.filter((slot) => slot.day === idx)

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export type CalendarProps = {
+export type CalendarConfig = {
   startHour: number,
   endHour: number,
   startDay: number,

@@ -10,7 +10,7 @@ import {
 import { Button } from "./ui/button";
 import { useState } from "react";
 import GeneralConfig from "./GeneralConfig";
-import { type CalendarProps } from "./Types";
+import { type CalendarConfig } from "./Types";
 import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
@@ -20,8 +20,8 @@ enum SidebarState {
 }
 
 interface SidebarProps {
-  config: CalendarProps;
-  onConfigChange?: (config: CalendarProps) => void;
+  config: CalendarConfig;
+  onConfigChange?: (config: CalendarConfig) => void;
   open?: boolean;
 }
 
@@ -36,6 +36,16 @@ export const Sidebar = ({ config, onConfigChange, open }: SidebarProps) => {
       "outline" :
       "ghost"
   };
+
+  const dayToInt: { [key: string]: number } = {
+    "Monday": 1,
+    "Tuesday": 2,
+    "Wednesday": 3,
+    "Thursday": 4,
+    "Friday": 5,
+    "Saturday": 6,
+    "Sunday": 7
+  }
 
   return (
     <div className={`max-w-[400px] 
@@ -66,6 +76,30 @@ export const Sidebar = ({ config, onConfigChange, open }: SidebarProps) => {
             </CardHeader>
             <CardContent className="flex flex-col gap-2">
               <div className="w-full h-10 grid grid-cols-2">
+                <div className="flex justify-start h-full items-center">Start Day</div>
+                <div className="flex justify-end h-full">
+                  <Select
+                    defaultOpen={false}
+                    defaultValue="Monday"
+                    onValueChange={(value) => onConfigChange && onConfigChange({
+                      ...config,
+                      startDay: dayToInt[value]
+                    })}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Monday" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {
+                        Object.keys(dayToInt).map((day) => (
+                          <SelectItem value={day}>{day}</SelectItem>
+                        ))
+                      }
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="w-full h-10 grid grid-cols-2">
                 <div className="flex justify-start h-full items-center">Day Count</div>
                 <div className="flex justify-end h-full">
                   <Select
@@ -80,10 +114,9 @@ export const Sidebar = ({ config, onConfigChange, open }: SidebarProps) => {
                       <SelectValue placeholder="5" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="1">1</SelectItem>
-                      <SelectItem value="3">3</SelectItem>
-                      <SelectItem value="5">5</SelectItem>
-                      <SelectItem value="7">7</SelectItem>
+                      {["1", "3", "5", "7"].map((dayIdx) => (
+                        <SelectItem value={dayIdx}>{dayIdx}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>

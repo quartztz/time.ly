@@ -4,22 +4,25 @@ import {
   CardHeader
 } from "@/components/ui/card";
 import * as c from "@/components/Common";
-import { courseSchema } from './Types';
+import { courseSchema, type CalendarConfig } from './Types';
 import { type Course } from './Types';
 import { DayComponent } from './Day';
 import coursesData from './courses.json';
 
-const Calendar = ({
-  startHour = 8,
-  endHour = 20,
-  startDay = 1,
-  numberOfDays = 5,
-}) => {
+interface CalendarProps {
+  config: CalendarConfig,
+}
+
+const Calendar = (config: CalendarProps) => {
   // Days of the week for labels
   const daysOfWeek = [
     'Monday', 'Tuesday', 'Wednesday',
     'Thursday', 'Friday', 'Saturday', 'Sunday'
   ];
+
+  // destructure configuration
+  const { startHour, endHour, startDay, numberOfDays } = config.config;
+
   const displayDays = c.displayDays(startDay, numberOfDays);
 
   // Generate array of hours for the day
@@ -34,10 +37,6 @@ const Calendar = ({
     5: "grid-cols-5",
     7: "grid-cols-7",
   };
-
-  const color = {
-    color: "rgb(160, 70, 60)",
-  }
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -55,12 +54,15 @@ const Calendar = ({
                 {e}:00
               </div>
             ))}
+            <div className="w-full flex-none">
+              {endHour}:00
+            </div>
           </div>
           <div id="cal" className={`px-4 w-full h-full grid ${gridLayouts[numberOfDays]}`}>
             {displayDays.map((dayName: string, dayIdx: number) => (
               DayComponent(
                 dayName,
-                dayIdx,
+                dayIdx + startDay - 1,
                 courses,
                 { startHour, endHour, startDay, numberOfDays }
               )

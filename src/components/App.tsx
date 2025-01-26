@@ -1,12 +1,12 @@
 import { Sidebar } from './Sidebar'
 import Calendar from './Calendar'
 import { useState } from 'react'
-import type { CalendarProps } from './Types'
+import type { CalendarConfig } from './Types'
 import { Button } from './ui/button'
 
 const App = () => {
 
-  const [calendarConfig, setCalendarConfig] = useState<CalendarProps>({
+  const [calendarConfig, setCalendarConfig] = useState<CalendarConfig>({
     startHour: 8,
     endHour: 19,
     startDay: 1,
@@ -20,15 +20,15 @@ const App = () => {
       <Button
         onClick={() => setSidebarOpen(!sidebarOpen)}
         variant={sidebarOpen ? "default" : "outline"}
-        className="fixed bottom-4 left-4 rounded-full h-10 w-10"
+        className="fixed bottom-4 left-4 rounded-md h-10 w-fit"
       >
-        S
+        toggle sidebar
       </Button >
       <Sidebar
         config={calendarConfig}
-        onConfigChange={(config: CalendarProps) => setCalendarConfig(config)}
+        onConfigChange={(config: CalendarConfig) => setCalendarConfig(config)}
         open={sidebarOpen} />
-      <Calendar {...calendarConfig} />
+      <Calendar config={calendarConfig} />
     </>
   )
 }
