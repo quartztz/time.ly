@@ -16,9 +16,8 @@ const TimeSlotComponent = (
   }
 
   const daylength = props.endHour - props.startHour
-  const corr = 0.9 + 1 / (10 * daylength) // top alignment correction
-  const height = slot.duration / daylength * 100 - 3
-  const top = (slot.startTime - props.startHour) * corr / daylength * 100
+  const height = slot.duration / daylength * 100 - 2.5
+  const top = (slot.startTime - props.startHour) * 0.9 / daylength * 100
 
   let style: TimeSlotStyle = {
     width: "100%",
