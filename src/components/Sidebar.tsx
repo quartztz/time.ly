@@ -1,4 +1,3 @@
-import { CourseForm } from "@/components/CourseForm.jsx";
 import {
   Card,
   CardContent,
@@ -9,8 +8,9 @@ import {
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import GeneralConfig from "./GeneralConfig";
-import { type CalendarConfig } from "./Types";
+import GeneralConfig from "@/components/GeneralConfig";
+import CourseConfig from "@/components/CourseConfig";
+import { type CalendarConfig, type Course } from "./Types";
 import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
@@ -22,11 +22,12 @@ enum SidebarState {
 interface SidebarProps {
   config: CalendarConfig;
   onConfigChange?: (config: CalendarConfig) => void;
+  courses: Course[];
 }
 
-export const Sidebar = ({ config, onConfigChange }: SidebarProps) => {
+export const Sidebar = ({ config, onConfigChange, courses }: SidebarProps) => {
 
-  let [state, setState] = useState(SidebarState.General);
+  let [state, setState] = useState(SidebarState.Course);
   let [open, setOpen] = useState(true);
 
   const getButtonVariant = (id: string): "secondary" | "default" => {
@@ -37,20 +38,10 @@ export const Sidebar = ({ config, onConfigChange }: SidebarProps) => {
       "secondary"
   };
 
-  const dayToInt: { [key: string]: number } = {
-    "Monday": 1,
-    "Tuesday": 2,
-    "Wednesday": 3,
-    "Thursday": 4,
-    "Friday": 5,
-    "Saturday": 6,
-    "Sunday": 7
-  }
-
   return (
-    <div className={`max-w-[400px] 
+    <div id="sidebar" className={`max-w-[384px] max-h-full
       h-full flex flex-col gap-2 transition-all duration-150 ease-in-out 
-      ${open ? "w-1/4" : "w-[3.25rem]"}`}>
+      ${open ? "w-1/3" : "w-[3.25rem]"}`}>
 
       <div className="w-full flex gap-2 p-2 bg-slate-100 rounded">
         <Button id="toggle" variant="ghost" className="p-4 w-4 h-4 aspect-square" onClick={() => setOpen(!open)}>
@@ -65,7 +56,7 @@ export const Sidebar = ({ config, onConfigChange }: SidebarProps) => {
         </div>}
       </div>
       {open &&
-        <Card id="bar" className="w-full h-full">
+        <Card id="bar" className="w-full h-full overflow-auto">
           <div className="w-full grid grid-cols-2 p-4 gap-2">
             <Button id="general" variant={`${getButtonVariant("general")}`} onClick={() => setState(
               SidebarState.General
@@ -80,102 +71,8 @@ export const Sidebar = ({ config, onConfigChange }: SidebarProps) => {
           </div>
           {
             (state == SidebarState.General) ?
-              <>
-                <CardHeader className="pt-2">
-                  <CardTitle>General</CardTitle>
-                  <CardDescription>
-                    Customize the look and feel of your timetable. All times are specified as 24-hour time.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-2">
-                  <div className="w-full h-10 grid grid-cols-2">
-                    <div className="flex justify-start h-full items-center">Start Day</div>
-                    <div className="flex justify-end h-full">
-                      <Select
-                        defaultOpen={false}
-                        defaultValue="Monday"
-                        onValueChange={(value) => onConfigChange && onConfigChange({
-                          ...config,
-                          startDay: dayToInt[value]
-                        })}
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Monday" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {
-                            Object.keys(dayToInt).map((day) => (
-                              <SelectItem value={day}>{day}</SelectItem>
-                            ))
-                          }
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="w-full h-10 grid grid-cols-2">
-                    <div className="flex justify-start h-full items-center">Day Count</div>
-                    <div className="flex justify-end h-full">
-                      <Select
-                        defaultOpen={false}
-                        defaultValue="5"
-                        onValueChange={(value) => onConfigChange && onConfigChange({
-                          ...config,
-                          numberOfDays: parseInt(value)
-                        })}
-                      >
-                        <SelectTrigger className="w-1/4 min-w-14">
-                          <SelectValue placeholder="5" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {["1", "3", "5", "7"].map((dayIdx) => (
-                            <SelectItem value={dayIdx}>{dayIdx}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="w-full grid grid-cols-2">
-                    <div className="flex justify-start h-full items-center">Start Time</div>
-                    <div className="flex justify-end">
-                      <input
-                        type="number"
-                        min="6"
-                        max="24"
-                        className="w-full rounded border border-slate-200 p-2"
-                        value={config.startHour}
-                        onChange={(e) => onConfigChange && onConfigChange({
-                          ...config,
-                          startHour: parseInt(e.target.value)
-                        })} />
-                    </div>
-                  </div>
-                  <div className="w-full grid grid-cols-2">
-                    <div className="flex justify-start h-full items-center">End Time</div>
-                    <div className="flex justify-end">
-                      <input
-                        type="number"
-                        min="6"
-                        max="24"
-                        className="w-full rounded border border-slate-200 p-2"
-                        value={config.endHour}
-                        onChange={(e) => onConfigChange && onConfigChange({
-                          ...config,
-                          endHour: parseInt(e.target.value)
-                        })} />
-                    </div>
-                  </div>
-                </CardContent>
-              </> :
-              <>
-                <CardHeader>
-                  <CardTitle>Create Course</CardTitle>
-                  <CardDescription>Changes are applied real-time.</CardDescription>
-                </CardHeader>
-                <CardContent className="Title" />
-                <CardFooter>
-                  <div>Click me</div>
-                </CardFooter>
-              </>
+              <GeneralConfig config={config} onConfigChange={onConfigChange} /> :
+              <CourseConfig courses={courses} />
           }
         </Card>
       }

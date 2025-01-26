@@ -7,13 +7,13 @@ import * as c from "@/components/Common";
 import { courseSchema, type CalendarConfig } from './Types';
 import { type Course } from './Types';
 import { DayComponent } from './Day';
-import coursesData from './courses.json';
 
 interface CalendarProps {
   config: CalendarConfig,
+  courses: Course[]
 }
 
-const Calendar = (config: CalendarProps) => {
+const Calendar = ({ config, courses }: CalendarProps) => {
   // Days of the week for labels
   const daysOfWeek = [
     'Monday', 'Tuesday', 'Wednesday',
@@ -21,15 +21,12 @@ const Calendar = (config: CalendarProps) => {
   ];
 
   // destructure configuration
-  const { startHour, endHour, startDay, numberOfDays } = config.config;
+  const { startHour, endHour, startDay, numberOfDays } = config;
 
   const displayDays = c.displayDays(startDay, numberOfDays);
 
   // Generate array of hours for the day
   const hours = c.hours(startHour, endHour);
-
-  // Validate courses data
-  const courses: Course[] = coursesData.map(course => courseSchema.parse(course));
 
   const gridLayouts: { [key: number]: string } = {
     1: "grid-cols-1",
