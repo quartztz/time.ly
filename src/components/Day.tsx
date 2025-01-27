@@ -27,7 +27,6 @@ export const DayComponent = (
             let cnt_conflicts = 0;
             let prev_conflicts = 0;
             return daySlots.map(({ course, slot }) => {
-              // You can modify conflictCounter here as needed
               if (slot.conflicts == 0) {
                 prev_conflicts == 0;
                 cnt_conflicts = 0;

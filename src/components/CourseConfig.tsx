@@ -17,7 +17,7 @@ interface CourseConfigProps {
 const CourseConfig = ({ courses }: CourseConfigProps) => {
   const courseList = courses.map((course: Course) => (
     <Card key={course.name} className="p-4 flex flex-col gap-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <div><CardTitle className="tracking-normal font-normal text-md">
           <p>{course.name}</p>
         </CardTitle>
