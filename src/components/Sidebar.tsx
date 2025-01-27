@@ -1,18 +1,11 @@
+import { useState } from "react";
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import { Button } from "./ui/button";
-import { useState } from "react";
-import GeneralConfig from "@/components/GeneralConfig";
+import { Button } from "@/components/ui/button";
 import CourseConfig from "@/components/CourseConfig";
-import { type CalendarConfig, type Course } from "./Types";
-import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import GeneralConfig from "@/components/GeneralConfig";
+import type { CalendarConfig, Course } from "../lib/Types";
 
 enum SidebarState {
   General = "general",
@@ -25,7 +18,7 @@ interface SidebarProps {
   courses: Course[];
 }
 
-export const Sidebar = ({ config, onConfigChange, courses }: SidebarProps) => {
+const Sidebar = ({ config, onConfigChange, courses }: SidebarProps) => {
 
   let [state, setState] = useState(SidebarState.Course);
   let [open, setOpen] = useState(true);
@@ -79,3 +72,5 @@ export const Sidebar = ({ config, onConfigChange, courses }: SidebarProps) => {
     </div >
   )
 }
+
+export default Sidebar;

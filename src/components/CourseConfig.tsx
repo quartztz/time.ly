@@ -1,6 +1,13 @@
-import type { CalendarConfig, Course } from "./Types";
-import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardDescription, CardFooter, CardTitle } from "./ui/card";
+import type { Course } from "@/lib/Types";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardDescription,
+  CardFooter,
+  CardTitle
+} from "@/components/ui/card";
 
 interface why {
   color: string;

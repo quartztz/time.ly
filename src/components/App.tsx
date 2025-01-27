@@ -1,9 +1,9 @@
-import { Sidebar } from './Sidebar'
-import Calendar from './Calendar'
 import { useState } from 'react'
-import type { CalendarConfig } from './Types'
-import courseData from './courses.json'
-import { type Course, courseSchema } from './Types'
+import Sidebar from '@/components/Sidebar'
+import Calendar from '@/components/Calendar'
+import type { CalendarConfig, Course } from '@/lib/Types'
+import { courseSchema } from '@/lib/Types'
+import courseData from '@/lib/courses.json'
 
 const App = () => {
 

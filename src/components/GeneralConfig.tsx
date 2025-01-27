@@ -1,6 +1,6 @@
-import type { CalendarConfig } from "./Types";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import type { CalendarConfig } from "@/lib/Types";
+import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface GeneralConfigProps {
   onConfigChange?: (config: CalendarConfig) => void;

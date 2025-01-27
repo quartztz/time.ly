@@ -1,10 +1,9 @@
-import { NoAdapterInstalledServerIslands } from 'node_modules/astro/dist/core/errors/errors-data';
-import {
-  type TimeSlotStyle,
-  type Course,
-  type TimeSlot,
-  type CalendarConfig
-} from './Types';
+import type {
+  TimeSlotStyle,
+  Course,
+  TimeSlot,
+  CalendarConfig
+} from '@/lib/Types';
 
 const TimeSlotComponent = (
   course: Course,

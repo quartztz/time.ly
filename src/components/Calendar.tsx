@@ -3,10 +3,9 @@ import {
   CardContent,
   CardHeader
 } from "@/components/ui/card";
-import * as c from "@/components/Common";
-import { courseSchema, type CalendarConfig } from './Types';
-import { type Course } from './Types';
-import { DayComponent } from './Day';
+import * as c from "@/lib/Common";
+import type { Course, CalendarConfig } from '@/lib/Types';
+import { DayComponent } from '@/components/Day';
 
 interface CalendarProps {
   config: CalendarConfig,
@@ -14,12 +13,6 @@ interface CalendarProps {
 }
 
 const Calendar = ({ config, courses }: CalendarProps) => {
-  // Days of the week for labels
-  const daysOfWeek = [
-    'Monday', 'Tuesday', 'Wednesday',
-    'Thursday', 'Friday', 'Saturday', 'Sunday'
-  ];
-
   // destructure configuration
   const { startHour, endHour, startDay, numberOfDays } = config;
 

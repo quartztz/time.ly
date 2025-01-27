@@ -1,6 +1,6 @@
-import { type Course, type CalendarConfig } from './Types';
 import type { JSX } from "react";
-import TimeSlotComponent from './TimeSlot';
+import type { Course, CalendarConfig } from '@/lib/Types';
+import TimeSlotComponent from '@/components/TimeSlot';
 
 export const DayComponent = (
   name: string,
