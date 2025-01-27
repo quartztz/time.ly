@@ -29,82 +29,74 @@ const GeneralConfig = ({ onConfigChange, config }: GeneralConfigProps) => {
           Customize the look and feel of your timetable. All times are specified as 24-hour time.
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-2">
-        <div className="w-full h-10 grid grid-cols-2">
-          <div className="flex justify-start h-full items-center">Start Day</div>
-          <div className="flex justify-end h-full">
-            <Select
-              defaultOpen={false}
-              defaultValue="Monday"
-              onValueChange={(value) => onConfigChange && onConfigChange({
-                ...config,
-                startDay: dayToInt[value]
-              })}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Monday" />
-              </SelectTrigger>
-              <SelectContent>
-                {
-                  Object.keys(dayToInt).map((day) => (
-                    <SelectItem value={day}>{day}</SelectItem>
-                  ))
-                }
-              </SelectContent>
-            </Select>
-          </div>
+      <CardContent className="grid grid-cols-2 flex-col gap-2">
+        <div className="flex justify-start h-full items-center">Start Day</div>
+        <div className="flex justify-end h-full">
+          <Select
+            defaultOpen={false}
+            defaultValue="Monday"
+            onValueChange={(value) => onConfigChange && onConfigChange({
+              ...config,
+              startDay: dayToInt[value]
+            })}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Monday" />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                Object.keys(dayToInt).map((day) => (
+                  <SelectItem value={day}>{day}</SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
         </div>
-        <div className="w-full h-10 grid grid-cols-2">
-          <div className="flex justify-start h-full items-center">Day Count</div>
-          <div className="flex justify-end h-full">
-            <Select
-              defaultOpen={false}
-              defaultValue={`${config.numberOfDays}`}
-              onValueChange={(value) => onConfigChange && onConfigChange({
-                ...config,
-                numberOfDays: parseInt(value)
-              })}
-            >
-              <SelectTrigger className="w-1/4 min-w-14">
-                <SelectValue placeholder={config.numberOfDays} />
-              </SelectTrigger>
-              <SelectContent>
-                {["1", "3", "5", "7"].map((dayIdx) => (
-                  <SelectItem value={dayIdx}>{dayIdx}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="flex justify-start h-full items-center">Day Count</div>
+        <div className="flex justify-end h-full">
+          <Select
+            defaultOpen={false}
+            defaultValue={`${config.numberOfDays}`}
+            onValueChange={(value) => onConfigChange && onConfigChange({
+              ...config,
+              numberOfDays: parseInt(value)
+            })}
+          >
+            <SelectTrigger className="w-1/4 min-w-14">
+              <SelectValue placeholder={config.numberOfDays} />
+            </SelectTrigger>
+            <SelectContent>
+              {["1", "3", "5", "7"].map((dayIdx) => (
+                <SelectItem value={dayIdx}>{dayIdx}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
-        <div className="w-full grid grid-cols-2">
-          <div className="flex justify-start h-full items-center">Start Time</div>
-          <div className="flex justify-end">
-            <input
-              type="number"
-              min="6"
-              max="24"
-              className="w-full rounded border border-slate-200 p-2"
-              value={config.startHour}
-              onChange={(e) => onConfigChange && onConfigChange({
-                ...config,
-                startHour: parseInt(e.target.value)
-              })} />
-          </div>
+        <div className="flex justify-start h-full items-center">Start Time</div>
+        <div className="flex justify-end">
+          <input
+            type="number"
+            min="6"
+            max="24"
+            className="w-full rounded border border-slate-200 p-2"
+            value={config.startHour}
+            onChange={(e) => onConfigChange && onConfigChange({
+              ...config,
+              startHour: parseInt(e.target.value)
+            })} />
         </div>
-        <div className="w-full grid grid-cols-2">
-          <div className="flex justify-start h-full items-center">End Time</div>
-          <div className="flex justify-end">
-            <input
-              type="number"
-              min="6"
-              max="24"
-              className="w-full rounded border border-slate-200 p-2"
-              value={config.endHour}
-              onChange={(e) => onConfigChange && onConfigChange({
-                ...config,
-                endHour: parseInt(e.target.value)
-              })} />
-          </div>
+        <div className="flex justify-start h-full items-center">End Time</div>
+        <div className="flex justify-end">
+          <input
+            type="number"
+            min="6"
+            max="24"
+            className="w-full rounded border border-slate-200 p-2"
+            value={config.endHour}
+            onChange={(e) => onConfigChange && onConfigChange({
+              ...config,
+              endHour: parseInt(e.target.value)
+            })} />
         </div>
       </CardContent>
     </>

@@ -7,6 +7,7 @@ import CourseConfig from "@/components/CourseConfig";
 import GeneralConfig from "@/components/GeneralConfig";
 import type { CalendarConfig, Course } from "../lib/Types";
 import { Toaster } from "sonner";
+import SidebarIcon from "@/assets/sidebar.svg";
 
 enum SidebarState {
   General = "general",
@@ -42,11 +43,7 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarPro
 
       <div className="w-full flex gap-2 p-2 bg-slate-100 rounded">
         <Button id="toggle" variant="ghost" className="p-4 w-4 h-4 aspect-square" onClick={() => setOpen(!open)}>
-          <svg width="100%" height="100%" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 6.75C4.75 5.64543 5.64543 4.75 6.75 4.75H17.25C18.3546 4.75 19.25 5.64543 19.25 6.75V17.25C19.25 18.3546 18.3546 19.25 17.25 19.25H6.75C5.64543 19.25 4.75 18.3546 4.75 17.25V6.75Z"></path>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 8.75V19"></path>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8.25H19"></path>
-          </svg>
+          <SidebarIcon />
         </Button>
         {open && <div className="w-full flex items-center justify-start font-semibold italic">
           time.ly
@@ -54,7 +51,7 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarPro
       </div>
       {open &&
         <>
-          <div className="w-full grid grid-cols-2 p-4 gap-2">
+          <div className="w-full grid grid-cols-2 p-4 gap-4">
             <Button id="general" variant={`${getButtonVariant("general")}`} onClick={() => setState(
               SidebarState.General
             )}>

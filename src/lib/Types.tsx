@@ -30,9 +30,9 @@ const slotSchema = z.object({
 export type TimeSlot = z.infer<typeof slotSchema>;
 
 export const courseSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1, "Course name cannot be empty"),
   code: z.string().optional(),
-  color: z.string(),
+  color: z.string().regex(/^#[0-9a-f]{6}$/i, "Color must be a valid hex code"),
   slots: z.array(slotSchema),
 });
 
