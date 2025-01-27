@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import {
   Card,
 } from "@/components/ui/card";
@@ -7,7 +7,7 @@ import CourseConfig from "@/components/CourseConfig";
 import GeneralConfig from "@/components/GeneralConfig";
 import type { CalendarConfig, Course } from "../lib/Types";
 import { Toaster } from "sonner";
-import SidebarIcon from "@/assets/sidebar.svg";
+import SidebarIcon from "@/components/icons/SidebarIcon";
 
 enum SidebarState {
   General = "general",
