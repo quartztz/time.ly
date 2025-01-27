@@ -15,7 +15,8 @@ export type TimeSlotStyle = { // all strings should be validated for correct for
   top: string,
   left: string,
   padding: string,
-  "background-color": string, // as defined by course color
+  background: string, // as defined by course color
+  filter: string,
 };
 
 const slotSchema = z.object({

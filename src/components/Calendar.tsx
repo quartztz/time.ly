@@ -46,13 +46,12 @@ const Calendar = ({ config, courses }: CalendarProps) => {
             <div className="h-14 flex-none w-full flex justify-center items-center">
               Time
             </div>
-            {hours.map((e) => (
-              <div className="w-full h-full flex justify-center items-start">
-                {e}:00
-              </div>
-            ))}
-            <div className="w-full flex-none">
-              {endHour}:00
+            <div id="hours-flex" className="h-full flex flex-col">
+              {hours.map((e) => (
+                <div className="w-full h-full flex justify-center items-start">
+                  {e}:00
+                </div>
+              ))}
             </div>
           </div>
           <div id="cal" className={`px-4 w-full h-full grid ${gridLayouts[numberOfDays]}`}>

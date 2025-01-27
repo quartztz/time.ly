@@ -1,3 +1,4 @@
+import { NoAdapterInstalledServerIslands } from 'node_modules/astro/dist/core/errors/errors-data';
 import {
   type TimeSlotStyle,
   type Course,
@@ -16,25 +17,26 @@ const TimeSlotComponent = (
   }
 
   const daylength = props.endHour - props.startHour
-  const height = slot.duration / daylength * 100 - 2.5
-  const top = (slot.startTime - props.startHour) * 0.9 / daylength * 100
+  const height = slot.duration / daylength * 100
+  const top = (slot.startTime - props.startHour) / daylength * 100
 
   let style: TimeSlotStyle = {
     width: "100%",
-    height: `${height}%`,
+    height: `${height - 1}%`,
     top: `${top}%`,
     left: "0",
     padding: "0.25em 0.5em",
-    "background-color": course.color
+    background: course.color,
+    filter: "",
   }
   if (slot.conflicts != 0) {
-    style.left = `${cnt_conflicts / slot.conflicts * 100}%`
-    style.width = `${100 / slot.conflicts - 2}%`
+    style.left = `${cnt_conflicts / slot.conflicts * 100}% `
+    style.width = `${100 / slot.conflicts - 2}% `
   }
 
   return (
     <div style={style} className="flex flex-col items-start justify-start absolute rounded p-1">
-      <div className="text-white font-semibold leading-5 text-sm hyphens-auto">{course.name}</div>
+      <div className="text-white font-semibold leading-5 text-sm">{course.name}</div>
       <div className="text-white text-xs">{slot.kind}</div>
     </div>
   );
