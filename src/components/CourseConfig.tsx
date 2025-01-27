@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import type { Course } from "@/lib/Types";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -8,7 +10,6 @@ import {
   CardFooter,
   CardTitle
 } from "@/components/ui/card";
-import { useRef } from "react";
 
 interface why {
   color: string;
@@ -55,6 +56,22 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
     URL.revokeObjectURL(url);
   }
 
+  const clearCourses = () => {
+    const temp = [...courses];
+    if (onCourseChange) {
+      onCourseChange([]);
+    }
+    toast("Courses cleared!", {
+      description: "Restart from a blank slate.", action: {
+        label: "Undo", onClick: () => {
+          if (onCourseChange) {
+            onCourseChange(temp);
+          }
+        }
+      }
+    });
+  }
+
   const courseList = courses.map((course: Course) => (
     <Card key={course.name} className="p-4 flex flex-col gap-4">
       <div className="flex items-center justify-between gap-2">
@@ -80,7 +97,7 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
       <CardContent className="flex flex-col gap-2 overflow-auto">
         <Button className="w-full">New Course</Button>
         <div className="w-full flex gap-2">
-          <Button variant="destructive" className="w-full p-2" onClick={() => onCourseChange && onCourseChange([])}>
+          <Button variant="destructive" className="w-full p-2" onClick={clearCourses}>
             Clear
           </Button>
           <Button variant="ghost" className="w-full p-2" onClick={exportCourses}>

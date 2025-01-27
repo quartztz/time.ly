@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import CourseConfig from "@/components/CourseConfig";
 import GeneralConfig from "@/components/GeneralConfig";
 import type { CalendarConfig, Course } from "../lib/Types";
+import { Toaster } from "sonner";
 
 enum SidebarState {
   General = "general",
@@ -72,6 +73,7 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarPro
           }
         </Card>
       }
+      <Toaster />
     </div >
   )
 }
