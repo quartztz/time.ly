@@ -1,0 +1,198 @@
+[
+  {
+    "name": "Introduction to life sciences",
+    "code": "BIO109",
+    "color": "#264653",
+    "slots": [
+      {
+        "startTime": 11,
+        "duration": 2,
+        "day": 0,
+        "kind": "lecture",
+        "conflicts": 2
+      },
+      {
+        "startTime": 10,
+        "duration": 1,
+        "day": 3,
+        "kind": "lecture",
+        "conflicts": 2
+      },
+      {
+        "startTime": 11,
+        "duration": 1,
+        "day": 3,
+        "kind": "exercises",
+        "conflicts": 2
+      },
+      {
+        "startTime": 13,
+        "duration": 1,
+        "day": 4,
+        "kind": "lecture",
+        "conflicts": 2
+      },
+      {
+        "startTime": 14,
+        "duration": 1,
+        "day": 4,
+        "kind": "exercises",
+        "conflicts": 2
+      }
+    ]
+  },
+  {
+    "name": "Data-intensive systems",
+    "code": "CS300",
+    "color": "#287271",
+    "slots": [
+      {
+        "startTime": 11,
+        "duration": 2,
+        "day": 0,
+        "kind": "lecture",
+        "conflicts": 2
+      },
+      {
+        "startTime": 16,
+        "duration": 1,
+        "day": 2,
+        "kind": "exercises",
+        "conflicts": 2
+      },
+      {
+        "startTime": 17,
+        "duration": 2,
+        "day": 2,
+        "kind": "project",
+        "conflicts": 0
+      }
+    ]
+  },
+  {
+    "name": "Theory of Computation",
+    "code": "CS251",
+    "color": "#2A9D8F",
+    "slots": [
+      {
+        "startTime": 13,
+        "duration": 2,
+        "day": 0,
+        "kind": "lecture",
+        "conflicts": 0
+      },
+      {
+        "startTime": 15,
+        "duration": 2,
+        "day": 0,
+        "kind": "exercises",
+        "conflicts": 0
+      }
+    ]
+  },
+  {
+    "name": "China, Korea and Japan after World War II",
+    "code": "HUMXXX",
+    "color": "#E9C46A",
+    "slots": [
+      {
+        "startTime": 13,
+        "duration": 2,
+        "day": 1,
+        "kind": "lecture",
+        "conflicts": 0
+      }
+    ]
+  },
+  {
+    "name": "Parallelism and concurrency in software",
+    "code": "CS302",
+    "color": "#F4A261",
+    "slots": [
+      {
+        "startTime": 10,
+        "duration": 2,
+        "day": 1,
+        "kind": "lecture",
+        "conflicts": 0
+      },
+      {
+        "startTime": 10,
+        "duration": 1,
+        "day": 3,
+        "kind": "lecture",
+        "conflicts": 2
+      },
+      {
+        "startTime": 11,
+        "duration": 1,
+        "day": 3,
+        "kind": "exercises",
+        "conflicts": 2
+      },
+      {
+        "startTime": 10,
+        "duration": 2,
+        "day": 4,
+        "kind": "project",
+        "conflicts": 0
+      }
+    ]
+  },
+  {
+    "name": "Computer language processing",
+    "code": "CS320",
+    "color": "#E76F51",
+    "slots": [
+      {
+        "startTime": 13,
+        "duration": 2,
+        "day": 2,
+        "kind": "lecture",
+        "conflicts": 0
+      },
+      {
+        "startTime": 13,
+        "duration": 2,
+        "day": 4,
+        "kind": "exercises",
+        "conflicts": 2
+      },
+      {
+        "startTime": 15,
+        "duration": 2,
+        "day": 4,
+        "kind": "project",
+        "conflicts": 2
+      }
+    ]
+  },
+  {
+    "name": "Computer graphics",
+    "code": "CS341",
+    "color": "#AD5843",
+    "slots": [
+      {
+        "startTime": 15,
+        "duration": 2,
+        "day": 2,
+        "kind": "lecture",
+        "conflicts": 2
+      },
+      {
+        "startTime": 15,
+        "duration": 2,
+        "day": 3,
+        "kind": "project",
+        "conflicts": 0
+      },
+      {
+        "startTime": 17,
+        "duration": 1,
+        "day": 3,
+        "kind": "project",
+        "conflicts": 0
+      }
+    ]
+  }
+]

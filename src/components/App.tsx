@@ -2,15 +2,15 @@ import { useState } from 'react'
 import Sidebar from '@/components/Sidebar'
 import Calendar from '@/components/Calendar'
 import type { CalendarConfig, Course } from '@/lib/Types'
-import { courseSchema } from '@/lib/Types'
-import courseData from '@/lib/courses.json'
+// import { courseSchema } from '@/lib/Types'
+// import courseData from '@/lib/fuller.json'
 
 const App = () => {
 
   // Validate courses data
   // assumes the existence, need to rewrite this later.
-  const from_file: Course[] = courseData.map(course => courseSchema.parse(course));
-  const [courses, setCourses] = useState<Course[]>(from_file);
+  // const from_file: Course[] = courseData.map(course => courseSchema.parse(course));
+  const [courses, setCourses] = useState<Course[]>([]);
 
   const [calendarConfig, setCalendarConfig] = useState<CalendarConfig>({
     startHour: 8,
@@ -24,7 +24,8 @@ const App = () => {
       <Sidebar
         config={calendarConfig}
         onConfigChange={(config: CalendarConfig) => setCalendarConfig(config)}
-        courses={courses} />
+        courses={courses}
+        onCourseChange={(courses: Course[]) => setCourses(courses)} />
       <Calendar config={calendarConfig} courses={courses} />
     </>
   )

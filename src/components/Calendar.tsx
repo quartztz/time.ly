@@ -39,7 +39,7 @@ const Calendar = ({ config, courses }: CalendarProps) => {
             <div className="h-14 flex-none w-full flex justify-center items-center">
               Time
             </div>
-            <div id="hours-flex" className="h-full flex flex-col">
+            <div id="hours-flex" className="h-full flex flex-col divide-y-2 border-y-2">
               {hours.map((e) => (
                 <div className="w-full h-full flex justify-center items-start">
                   {e}:00

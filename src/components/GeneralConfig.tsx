@@ -59,14 +59,14 @@ const GeneralConfig = ({ onConfigChange, config }: GeneralConfigProps) => {
           <div className="flex justify-end h-full">
             <Select
               defaultOpen={false}
-              defaultValue="5"
+              defaultValue={`${config.numberOfDays}`}
               onValueChange={(value) => onConfigChange && onConfigChange({
                 ...config,
                 numberOfDays: parseInt(value)
               })}
             >
               <SelectTrigger className="w-1/4 min-w-14">
-                <SelectValue placeholder="5" />
+                <SelectValue placeholder={config.numberOfDays} />
               </SelectTrigger>
               <SelectContent>
                 {["1", "3", "5", "7"].map((dayIdx) => (
