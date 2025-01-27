@@ -52,26 +52,28 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarPro
           time.ly
         </div>}
       </div>
-      <div className="w-full grid grid-cols-2 p-4 gap-2">
-        <Button id="general" variant={`${getButtonVariant("general")}`} onClick={() => setState(
-          SidebarState.General
-        )}>
-          General
-        </Button>
-        <Button id="course" variant={`${getButtonVariant("course")}`} onClick={() => setState(
-          SidebarState.Course
-        )}>
-          Course
-        </Button>
-      </div>
       {open &&
-        <Card id="bar" className="w-full h-full overflow-auto pt-4">
-          {
-            (state == SidebarState.General) ?
-              <GeneralConfig config={config} onConfigChange={onConfigChange} /> :
-              <CourseConfig courses={courses} onCourseChange={onCourseChange} />
-          }
-        </Card>
+        <>
+          <div className="w-full grid grid-cols-2 p-4 gap-2">
+            <Button id="general" variant={`${getButtonVariant("general")}`} onClick={() => setState(
+              SidebarState.General
+            )}>
+              General
+            </Button>
+            <Button id="course" variant={`${getButtonVariant("course")}`} onClick={() => setState(
+              SidebarState.Course
+            )}>
+              Course
+            </Button>
+          </div>
+          <Card id="bar" className="w-full h-full overflow-auto pt-4">
+            {
+              (state == SidebarState.General) ?
+                <GeneralConfig config={config} onConfigChange={onConfigChange} /> :
+                <CourseConfig courses={courses} onCourseChange={onCourseChange} />
+            }
+          </Card>
+        </>
       }
       <Toaster />
     </div >
