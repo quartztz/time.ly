@@ -10,7 +10,7 @@ import {
   CardFooter,
   CardTitle
 } from "@/components/ui/card";
-import EditCourseDialog from "./EditCourse";
+import CourseDialog from "./EditCourse";
 
 interface why {
   color: string;
@@ -83,9 +83,16 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
       }
     });
   }
+  const emptyCourse: Course = {
+    name: "",
+    color: "#000000",
+    slots: []
+  };
+
+  const i = 0;
 
   const courseList = courses.map((course: Course) => (
-    <Card key={course.name} className="p-4 flex flex-col gap-2">
+    <Card key={`course.name ${i + 1}`} className="p-4 flex flex-col gap-2">
       <div className="flex items-center justify-between gap-2">
         <div><CardTitle className="tracking-normal font-normal text-md">
           <p>{course.name}</p>
@@ -94,8 +101,15 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
         </div>
         <Swatch color={course.color} />
       </div>
-      <CardFooter className="w-full flex justify-end p-0">
-        <EditCourseDialog course={course} pushEdit={(c: Course) => {
+      <CardFooter className="w-full flex justify-between p-0">
+        <Button variant="destructive" className="p-2" onClick={() => {
+          if (onCourseChange) {
+            onCourseChange(courses.filter((c) => c.name !== course.name));
+          }
+        }}>
+          Delete
+        </Button>
+        <CourseDialog variant="edit" course={course} pushEdit={(c: Course) => {
           if (onCourseChange) {
             const temp = [...courses];
             const index = temp.findIndex((e) => e.name === course.name);
@@ -115,7 +129,11 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
       </CardHeader>
       <CardContent className="flex flex-col gap-4 overflow-auto">
         <div className="w-full flex flex-col items-center justify-between gap-2 py-2">
-          <Button className="w-full">New Course</Button>
+          <CourseDialog variant="create" course={emptyCourse} pushEdit={(c: Course) => {
+            if (onCourseChange) {
+              onCourseChange([...courses, c]);
+            }
+          }} />
           <div className="w-full flex gap-2">
             <Button variant="destructive" className="w-full p-2" onClick={clearCourses}>
               Clear
@@ -136,7 +154,7 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
           </div>
         </div>
         {courseList}
-      </CardContent>
+      </CardContent >
     </>
   )
 };

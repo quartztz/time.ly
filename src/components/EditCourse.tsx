@@ -34,17 +34,20 @@ import { daysOfWeek } from "@/lib/Common";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import DeleteIcon from "./icons/DeleteIcon";
 
-interface EditCourseProps {
+interface CourseDialogProps {
   course: Course;
   pushEdit: (newCourse: Course) => void;
+  variant: "create" | "edit";
 }
 
 interface CourseFormProps {
   course: Course;
   pushEdit: (newCourse: Course) => void;
+  variant: "create" | "edit";
+  closeDialog: () => void;
 }
 
-const CourseForm = ({ course, pushEdit }: CourseFormProps) => {
+const CourseForm = ({ course, pushEdit, variant, closeDialog: closeDialog }: CourseFormProps) => {
   const form = useForm<Course>({
     resolver: zodResolver(courseSchema),
     defaultValues: course
@@ -140,156 +143,174 @@ const CourseForm = ({ course, pushEdit }: CourseFormProps) => {
           )}
         />
 
-        <Table>
-          <TableCaption>Timeslots</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Day</TableHead>
-              <TableHead>Start Time</TableHead>
-              <TableHead>Duration</TableHead>
-              <TableHead>Kind</TableHead>
-              <TableHead>Conflicts</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {
-              form.watch("slots").map((slot, idx) => (
-                <TableRow key={idx}>
-                  <TableCell>
-                    <FormField
-                      control={form.control}
-                      name={`slots.${idx}.day`}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          defaultValue={daysOfWeek[slot.day]}
-                          value={daysOfWeek[slot.day]}
-                          onValueChange={(value) => {
-                            const newDay = daysOfWeek.indexOf(value);
-                            field.onChange(newDay);
-                          }}
-                        >
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder={daysOfWeek[slot.day]} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {
-                              daysOfWeek.map((day) => (
-                                <SelectItem key={day} value={day}>{day}</SelectItem>
-                              ))
-                            }
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormField
-                      control={form.control}
-                      name={`slots.${idx}.startTime`}
-                      render={({ field }) => (
-                        <FormControl>
-                          <input
-                            type="number"
-                            className="w-full rounded border border-slate-200 p-2"
+        {variant === "edit" &&
+          <Table>
+            <TableCaption>Timeslots</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Day</TableHead>
+                <TableHead>Start Time</TableHead>
+                <TableHead>Duration</TableHead>
+                <TableHead>Kind</TableHead>
+                <TableHead>Conflicts</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {
+                form.watch("slots").map((slot, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`slots.${idx}.day`}
+                        render={({ field }) => (
+                          <Select
                             {...field}
-                          />
-                        </FormControl>
-                      )}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormField
-                      control={form.control}
-                      name={`slots.${idx}.duration`}
-                      render={({ field }) => (
-                        <FormControl>
-                          <input
-                            type="number"
-                            className="w-full rounded border border-slate-200 p-2"
-                            {...field}
-                          />
-                        </FormControl>
-                      )}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormField
-                      control={form.control}
-                      name={`slots.${idx}.kind`}
-                      render={({ field }) => (
-                        <FormControl>
-                          <input
-                            className="w-full rounded border border-slate-200 p-2"
-                            {...field}
-                          />
-                        </FormControl>
-                      )}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormField
-                      control={form.control}
-                      name={`slots.${idx}.conflicts`}
-                      render={({ field }) => (
-                        <FormControl>
-                          <input
-                            type="number"
-                            className="w-full rounded border border-slate-200 p-2"
-                            {...field}
-                          />
-                        </FormControl>
-                      )}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outline"
-                      className="w-8 h-8"
-                      onClick={() => deleteSlot(idx)}
-                    >
-                      <DeleteIcon />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))
-            }
-            <TableRow>
-              <TableCell colSpan={6} className="p-0 flex items-end">
-                <Button variant="ghost" className="p-2" onClick={addNewSlot}>
-                  + add new timeslot
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+                            defaultValue={daysOfWeek[slot.day]}
+                            value={daysOfWeek[slot.day]}
+                            onValueChange={(value) => {
+                              const newDay = daysOfWeek.indexOf(value);
+                              field.onChange(newDay);
+                            }}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder={daysOfWeek[slot.day]} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {
+                                daysOfWeek.map((day) => (
+                                  <SelectItem key={day} value={day}>{day}</SelectItem>
+                                ))
+                              }
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`slots.${idx}.startTime`}
+                        render={({ field }) => (
+                          <FormControl>
+                            <input
+                              type="number"
+                              className="w-full rounded border border-slate-200 p-2"
+                              {...field}
+                            />
+                          </FormControl>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`slots.${idx}.duration`}
+                        render={({ field }) => (
+                          <FormControl>
+                            <input
+                              type="number"
+                              className="w-full rounded border border-slate-200 p-2"
+                              {...field}
+                            />
+                          </FormControl>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`slots.${idx}.kind`}
+                        render={({ field }) => (
+                          <FormControl>
+                            <input
+                              className="w-full rounded border border-slate-200 p-2"
+                              {...field}
+                            />
+                          </FormControl>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`slots.${idx}.conflicts`}
+                        render={({ field }) => (
+                          <FormControl>
+                            <input
+                              type="number"
+                              className="w-full rounded border border-slate-200 p-2"
+                              {...field}
+                            />
+                          </FormControl>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outline"
+                        className="w-8 h-8"
+                        onClick={() => deleteSlot(idx)}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              }
+              <TableRow>
+                <TableCell colSpan={6} className="p-0 flex items-end">
+                  <Button variant="ghost" className="p-2" onClick={addNewSlot}>
+                    + add new timeslot
+                  </Button>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>}
 
-        <div className="w-full flex pt-4 justify-end">
-          <Button variant="default" type="submit" className="w-fit">Save</Button>
+        <div className="w-full flex pt-4 justify-between">
+          <Button variant="destructive" type="reset" onClick={closeDialog}>
+            Cancel
+          </Button>
+          <Button variant="default" type="submit" onClick={closeDialog}>
+            Save
+          </Button>
         </div>
       </form>
     </Form >
   );
 }
 
-const EditCourseDialog = ({ course, pushEdit }: EditCourseProps) => {
+const CourseDialog = ({ course, pushEdit, variant }: CourseDialogProps) => {
+  const [open, setOpen] = useState(false);
+  const closeDialog = () => setOpen(false);
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="ghost" className="p-2">Edit Course</Button>
+    <Dialog open={open}>
+      <DialogTrigger asChild onClick={() => setOpen(true)}>
+        {variant === "create" ?
+          <Button variant="default" className="w-full p-2">New Course</Button> :
+          <Button variant="ghost" className="p-2">Edit Course</Button>
+        }
       </DialogTrigger>
       <DialogContent className="w-[50vw] max-w-[648px]">
         <DialogHeader>
-          <DialogTitle>Edit Course</DialogTitle>
+          <DialogTitle>
+            {variant === "create" ? "New Course" : "Edit Course"}
+          </DialogTitle>
           <DialogDescription>
-            Edit course metadata, add and remove timeslots.
+            {variant === "create" ?
+              "Create a new course." :
+              "Edit course metadata, add and remove timeslots."
+            }
           </DialogDescription>
         </DialogHeader>
-        <CourseForm course={course} pushEdit={pushEdit} />
+        <CourseForm course={course} closeDialog={closeDialog} pushEdit={pushEdit} variant={variant} />
+        <DialogClose />
       </DialogContent>
     </Dialog>
   )
 }
 
-export default EditCourseDialog;
+export default CourseDialog;
