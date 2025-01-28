@@ -23,7 +23,7 @@ interface SidebarProps {
 
 const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarProps) => {
 
-  let [state, setState] = useState(SidebarState.Course);
+  let [state, setState] = useState(SidebarState.General);
   let [open, setOpen] = useState(true);
 
   const getButtonVariant = (id: string): "secondary" | "default" => {

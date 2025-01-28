@@ -14,7 +14,7 @@ interface CalendarProps {
 
 const Calendar = ({ config, courses }: CalendarProps) => {
   // destructure configuration
-  const { startHour, endHour, startDay, numberOfDays } = config;
+  const { startHour, endHour, startDay, numberOfDays, showHours } = config;
 
   const displayDays = c.displayDays(startDay, numberOfDays);
 
@@ -35,25 +35,27 @@ const Calendar = ({ config, courses }: CalendarProps) => {
           my timetable
         </CardHeader>
         <CardContent className="w-full h-full flex flex-row overflow-hidden">
-          <div id="timecol" className="w-1/8 h-full flex flex-col px-4">
-            <div className="h-14 flex-none w-full flex justify-center items-center">
-              Time
+          {showHours &&
+            <div id="timecol" className="w-1/8 h-full flex flex-col px-2 divide-y-[1px] divide-y-slate-50">
+              <div className="h-14 w-full flex justify-center items-center">
+                Time
+              </div>
+              <div id="hours-flex" className="h-full flex flex-col py-2 divide-y-[1px] divide-y-slate-50">
+                {hours.map((e) => (
+                  <div className="w-full h-full flex justify-center items-start">
+                    {e}:00
+                  </div>
+                ))}
+              </div>
             </div>
-            <div id="hours-flex" className="h-full flex flex-col divide-y-2 border-y-2">
-              {hours.map((e) => (
-                <div className="w-full h-full flex justify-center items-start">
-                  {e}:00
-                </div>
-              ))}
-            </div>
-          </div>
-          <div id="cal" className={`px-4 w-full h-full grid ${gridLayouts[numberOfDays]}`}>
+          }
+          <div id="cal" className={`px-4 w-full h-full grid ${gridLayouts[numberOfDays]} divide-x-[1px] divide-x-slate-50`}>
             {displayDays.map((dayName: string, dayIdx: number) => (
               DayComponent(
                 dayName,
                 dayIdx + startDay - 1,
                 courses,
-                { startHour, endHour, startDay, numberOfDays }
+                { startHour, endHour, startDay, numberOfDays, showHours }
               )
             ))}
           </div>

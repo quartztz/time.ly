@@ -5,6 +5,7 @@ export type CalendarConfig = {
   endHour: number,
   startDay: number,
   numberOfDays: number,
+  showHours: boolean,
 }
 
 export type TimeSlotKind = 'lecture' | 'project' | 'exercises';

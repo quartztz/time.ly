@@ -1,6 +1,7 @@
 import type { CalendarConfig } from "@/lib/Types";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "./ui/checkbox";
 
 interface GeneralConfigProps {
   onConfigChange?: (config: CalendarConfig) => void;
@@ -8,8 +9,6 @@ interface GeneralConfigProps {
 }
 
 const GeneralConfig = ({ onConfigChange, config }: GeneralConfigProps) => {
-
-  // TODO: export this to a json config file for easier editing
 
   const dayToInt: { [key: string]: number } = { // ew
     "Monday": 1,
@@ -96,6 +95,15 @@ const GeneralConfig = ({ onConfigChange, config }: GeneralConfigProps) => {
             onChange={(e) => onConfigChange && onConfigChange({
               ...config,
               endHour: parseInt(e.target.value)
+            })} />
+        </div>
+        <div className="flex justify-start h-full items-center">Show Hours</div>
+        <div className="w-full flex justify-end p-2">
+          <Checkbox
+            checked={config.showHours}
+            onCheckedChange={(value) => onConfigChange && onConfigChange({
+              ...config,
+              showHours: value ? true : false
             })} />
         </div>
       </CardContent>
