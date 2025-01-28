@@ -20,11 +20,11 @@ export type TimeSlotStyle = { // all strings should be validated for correct for
 };
 
 const slotSchema = z.object({
-  startTime: z.number(),
-  duration: z.number(),
-  day: z.number(),
+  startTime: z.coerce.number(),
+  duration: z.coerce.number(),
+  day: z.coerce.number().min(0).max(6),
   kind: z.string(),
-  conflicts: z.number(),
+  conflicts: z.coerce.number(),
 });
 
 export type TimeSlot = z.infer<typeof slotSchema>;
