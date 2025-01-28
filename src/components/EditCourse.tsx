@@ -32,6 +32,7 @@ import {
 } from "./ui/table";
 import { daysOfWeek } from "@/lib/Common";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import DeleteIcon from "./icons/DeleteIcon";
 
 interface EditCourseProps {
   course: Course;
@@ -48,9 +49,26 @@ const CourseForm = ({ course, pushEdit }: CourseFormProps) => {
     resolver: zodResolver(courseSchema),
     defaultValues: course
   });
+
   const onsubmit = (val: Course) => {
     pushEdit(val);
-  }
+  };
+
+  const addNewSlot = () => {
+    const updatedSlots = [...form.getValues("slots"), {
+      day: 0,
+      startTime: 0,
+      duration: 0,
+      kind: "",
+      conflicts: 0
+    }];
+    form.setValue("slots", updatedSlots);
+  };
+
+  const deleteSlot = (index: number) => {
+    const updatedSlots = form.getValues("slots").filter((_, i) => i !== index);
+    form.setValue("slots", updatedSlots);
+  };
 
   return (
     <Form {...form}>
@@ -131,103 +149,123 @@ const CourseForm = ({ course, pushEdit }: CourseFormProps) => {
               <TableHead>Duration</TableHead>
               <TableHead>Kind</TableHead>
               <TableHead>Conflicts</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {
-              course.slots.map((slot, idx) => (
+              form.watch("slots").map((slot, idx) => (
                 <TableRow key={idx}>
                   <TableCell>
-                    {
-                      <FormField
-                        control={form.control}
-                        name={`slots.${idx}.day`}
-                        render={({ field }) => (
-                          <Select
-                            {...field}
-                            defaultValue={daysOfWeek[slot.day]}
-                            value={daysOfWeek[slot.day]}
-                            onValueChange={(value) => {
-                              const newCourse = { ...course };
-                              newCourse.slots[idx].day = daysOfWeek.indexOf(value);
-                              field.onChange(newCourse.slots[idx].day);
-                            }}
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder={daysOfWeek[slot.day]} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {
-                                daysOfWeek.map((day) => (
-                                  <SelectItem value={day}>{day}</SelectItem>
-                                ))
-                              }
-                            </SelectContent>
-                          </Select>
-                        )} />
-                    }
+                    <FormField
+                      control={form.control}
+                      name={`slots.${idx}.day`}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          defaultValue={daysOfWeek[slot.day]}
+                          value={daysOfWeek[slot.day]}
+                          onValueChange={(value) => {
+                            const newDay = daysOfWeek.indexOf(value);
+                            field.onChange(newDay);
+                          }}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder={daysOfWeek[slot.day]} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {
+                              daysOfWeek.map((day) => (
+                                <SelectItem key={day} value={day}>{day}</SelectItem>
+                              ))
+                            }
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
                   </TableCell>
                   <TableCell>
                     <FormField
                       control={form.control}
                       name={`slots.${idx}.startTime`}
                       render={({ field }) => (
-                        <FormControl {...field}>
+                        <FormControl>
                           <input
                             type="number"
                             className="w-full rounded border border-slate-200 p-2"
-                            {...field} />
+                            {...field}
+                          />
                         </FormControl>
-                      )} />
+                      )}
+                    />
                   </TableCell>
                   <TableCell>
                     <FormField
                       control={form.control}
                       name={`slots.${idx}.duration`}
                       render={({ field }) => (
-                        <FormControl {...field}>
+                        <FormControl>
                           <input
                             type="number"
                             className="w-full rounded border border-slate-200 p-2"
-                            {...field} />
+                            {...field}
+                          />
                         </FormControl>
-                      )} />
+                      )}
+                    />
                   </TableCell>
                   <TableCell>
                     <FormField
                       control={form.control}
                       name={`slots.${idx}.kind`}
                       render={({ field }) => (
-                        <FormControl {...field}>
+                        <FormControl>
                           <input
                             className="w-full rounded border border-slate-200 p-2"
-                            {...field} />
+                            {...field}
+                          />
                         </FormControl>
-                      )} />
+                      )}
+                    />
                   </TableCell>
                   <TableCell>
                     <FormField
                       control={form.control}
                       name={`slots.${idx}.conflicts`}
                       render={({ field }) => (
-                        <FormControl {...field}>
+                        <FormControl>
                           <input
                             type="number"
                             className="w-full rounded border border-slate-200 p-2"
-                            {...field} />
+                            {...field}
+                          />
                         </FormControl>
-                      )} />
+                      )}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outline"
+                      className="w-8 h-8"
+                      onClick={() => deleteSlot(idx)}
+                    >
+                      <DeleteIcon />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))
             }
+            <TableRow>
+              <TableCell colSpan={6} className="p-0 flex items-end">
+                <Button variant="ghost" className="p-2" onClick={addNewSlot}>
+                  + add new timeslot
+                </Button>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
 
-        <div className="w-full flex pt-4 justify-between">
-          <DialogClose asChild>
-            <Button variant="destructive" className="w-fit">Cancel</Button>
-          </DialogClose>
+        <div className="w-full flex pt-4 justify-end">
           <Button variant="default" type="submit" className="w-fit">Save</Button>
         </div>
       </form>
@@ -254,4 +292,4 @@ const EditCourseDialog = ({ course, pushEdit }: EditCourseProps) => {
   )
 }
 
-export default EditCourseDialog; 
+export default EditCourseDialog;
