@@ -27,14 +27,10 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarPro
   let [open, setOpen] = useState(true);
 
   const getButtonVariant = (id: string): "secondary" | "default" => {
-    console.log(id, state)
-    console.log(id === state)
     return (id === state) ?
       "default" :
       "secondary"
   };
-
-  console.log(JSON.stringify(courses));
 
   return (
     <div id="sidebar" className={`max-w-[384px] max-h-full

@@ -96,10 +96,10 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
       </div>
       <CardFooter className="w-full flex justify-end p-0">
         <EditCourseDialog course={course} pushEdit={(c: Course) => {
-          const temp = [...courses];
-          const index = temp.findIndex((e) => e.name === course.name);
-          temp[index] = c;
           if (onCourseChange) {
+            const temp = [...courses];
+            const index = temp.findIndex((e) => e.name === course.name);
+            temp[index] = c;
             onCourseChange(temp);
           }
         }} />
