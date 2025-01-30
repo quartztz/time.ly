@@ -3,7 +3,7 @@ name: deploy to ifmk server
 on: [push]
 
 jobs: 
-  build: 
+  build-and-deploy: 
     runs-on: ubuntu-latest
     env: 
       CI: true
