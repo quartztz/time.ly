@@ -25,4 +25,4 @@ jobs:
           remote: scp/sites/time.ly.quartztz.com
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.SSH_PASSWORD }}
