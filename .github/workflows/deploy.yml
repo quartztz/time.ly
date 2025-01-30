@@ -19,10 +19,10 @@ jobs:
       - name: build
         run: npm run build
       - name: copy to server
-        uses: garygrossgarten/github-action-scp@release
+        uses: appleboy/scp-action@v0.1.7
         with: 
-          local: dist
-          remote: scp/sites/time.ly.quartztz.com
+          source: "dist"
+          target: scp/sites/time.ly.quartztz.com
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
