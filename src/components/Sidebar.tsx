@@ -26,7 +26,7 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarPro
   let [state, setState] = useState(SidebarState.General);
   let [open, setOpen] = useState(true);
 
-  const getButtonVariant = (id: string): "secondary" | "default" => {
+  const getButtonVariant = (id: string): "default" | "secondary" => {
     return (id === state) ?
       "default" :
       "secondary"
