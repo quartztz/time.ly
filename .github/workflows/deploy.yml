@@ -22,7 +22,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with: 
           source: "dist"
-          target: scp/sites/time.ly.quartztz.com
+          target: sites/time.ly.quartztz.com/dist
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PWD }}
