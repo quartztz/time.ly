@@ -287,7 +287,7 @@ const CourseDialog = ({ course, pushEdit, variant }: CourseDialogProps) => {
   const closeDialog = () => setOpen(false);
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild onClick={() => setOpen(true)}>
         {variant === "create" ?
           <Button variant="default" className="w-full p-2">New Course</Button> :
