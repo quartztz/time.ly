@@ -36,7 +36,7 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange, save }: Side
 
   return (
     <div id="sidebar" className={`max-w-[384px] max-h-full
-      h-full flex flex-col transition-all duration-150 ease-in-out gap-4
+      h-full flex flex-col transition-all duration-250 ease-in-out gap-4
       ${open ? "w-[27%]" : "w-[3.25rem]"}`}>
 
       <div className="w-full flex gap-2 p-2 bg-slate-100 rounded">
@@ -48,7 +48,7 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange, save }: Side
         </div>}
       </div>
       <div className="flex h-fit items-center justify-center">
-        <Button variant="default" className="w-3/5" onClick={save}>{open ? "Save to image" : <SaveIcon />}</Button>
+        <Button variant={`${open ? "default" : "ghost"}`} className={`${open ? "w-3/5" : "w-4 h-4 p-4"}`} onClick={save}>{open ? "Save to image" : <SaveIcon />}</Button>
       </div>
       {open &&
         <>

@@ -2,6 +2,7 @@ import { Fragment, useRef, useState } from 'react'
 import Sidebar from '@/components/Sidebar'
 import Calendar from '@/components/Calendar'
 import type { CalendarConfig, Course } from '@/lib/Types'
+import d from 'dom-to-image'
 
 const App = () => {
 
@@ -17,8 +18,14 @@ const App = () => {
 
   const imageRef = useRef<HTMLDivElement | null>(null);
 
-  const saveImage = () => {
-    console.log("exporting to image");
+  const saveImage = async () => {
+    const elem = imageRef.current as Node;
+    d.toJpeg(elem, { quality: 2 }).then((dataUrl) => {
+      const link = document.createElement('a');
+      link.download = 'calendar.jpeg';
+      link.href = dataUrl;
+      link.click();
+    });
   }
 
   return (
