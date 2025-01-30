@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
   Card,
 } from "@/components/ui/card";
@@ -8,6 +8,7 @@ import GeneralConfig from "@/components/GeneralConfig";
 import type { CalendarConfig, Course } from "../lib/Types";
 import { Toaster } from "sonner";
 import SidebarIcon from "@/components/icons/SidebarIcon";
+import SaveIcon from "@/components/icons/SaveIcon";
 
 enum SidebarState {
   General = "general",
@@ -19,22 +20,23 @@ interface SidebarProps {
   onConfigChange?: (config: CalendarConfig) => void;
   courses: Course[];
   onCourseChange?: (courses: Course[]) => void;
+  save: () => void;
 }
 
-const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarProps) => {
+const Sidebar = ({ config, onConfigChange, courses, onCourseChange, save }: SidebarProps) => {
 
   let [state, setState] = useState(SidebarState.General);
   let [open, setOpen] = useState(true);
 
-  const getButtonVariant = (id: string): "default" | "secondary" => {
+  const getButtonVariant = (id: string): "secondary" | "ghost" => {
     return (id === state) ?
-      "default" :
-      "secondary"
+      "secondary" :
+      "ghost"
   };
 
   return (
     <div id="sidebar" className={`max-w-[384px] max-h-full
-      h-full flex flex-col transition-all duration-150 ease-in-out 
+      h-full flex flex-col transition-all duration-150 ease-in-out gap-4
       ${open ? "w-[27%]" : "w-[3.25rem]"}`}>
 
       <div className="w-full flex gap-2 p-2 bg-slate-100 rounded">
@@ -45,9 +47,12 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange }: SidebarPro
           time.ly
         </div>}
       </div>
+      <div className="flex h-fit items-center justify-center">
+        <Button variant="default" className="w-3/5" onClick={save}>{open ? "Save to image" : <SaveIcon />}</Button>
+      </div>
       {open &&
         <>
-          <div className="w-full grid grid-cols-2 p-4 gap-4">
+          <div className="w-full grid grid-cols-2 px-4 gap-4">
             <Button id="general" variant={`${getButtonVariant("general")}`} onClick={() => setState(
               SidebarState.General
             )}>
