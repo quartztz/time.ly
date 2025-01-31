@@ -12,7 +12,7 @@ import SaveIcon from "@/components/icons/SaveIcon";
 
 enum SidebarState {
   General = "general",
-  Course = "course"
+  Courses = "courses"
 }
 
 interface SidebarProps {
@@ -59,9 +59,9 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange, save }: Side
               General
             </Button>
             <Button id="course" variant={`${getButtonVariant("course")}`} onClick={() => setState(
-              SidebarState.Course
+              SidebarState.Courses
             )}>
-              Course
+              Courses
             </Button>
           </div>
           <Card id="bar" className="w-full h-full overflow-auto pt-4">
