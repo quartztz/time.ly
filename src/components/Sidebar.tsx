@@ -5,7 +5,7 @@ import {
 import { Button } from "@/components/ui/button";
 import CourseConfig from "@/components/CourseConfig";
 import GeneralConfig from "@/components/GeneralConfig";
-import type { CalendarConfig, Course } from "../lib/Types";
+import type { CalendarConfig, Course, Palette } from "../lib/Types";
 import { Toaster } from "sonner";
 import SidebarIcon from "@/components/icons/SidebarIcon";
 import SaveIcon from "@/components/icons/SaveIcon";
@@ -21,9 +21,11 @@ interface SidebarProps {
   courses: Course[];
   onCourseChange?: (courses: Course[]) => void;
   save: () => void;
+  palette: Palette;
+  setPalette: (palette: Palette) => void;
 }
 
-const Sidebar = ({ config, onConfigChange, courses, onCourseChange, save }: SidebarProps) => {
+const Sidebar = ({ config, onConfigChange, courses, onCourseChange, save, palette, setPalette }: SidebarProps) => {
 
   let [state, setState] = useState(SidebarState.General);
   let [open, setOpen] = useState(true);
@@ -58,7 +60,7 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange, save }: Side
             )}>
               General
             </Button>
-            <Button id="course" variant={`${getButtonVariant("course")}`} onClick={() => setState(
+            <Button id="courses" variant={`${getButtonVariant("courses")}`} onClick={() => setState(
               SidebarState.Courses
             )}>
               Courses
@@ -67,8 +69,8 @@ const Sidebar = ({ config, onConfigChange, courses, onCourseChange, save }: Side
           <Card id="bar" className="w-full h-full overflow-auto pt-4">
             {
               (state == SidebarState.General) ?
-                <GeneralConfig config={config} onConfigChange={onConfigChange} /> :
-                <CourseConfig courses={courses} onCourseChange={onCourseChange} />
+                <GeneralConfig config={config} onConfigChange={onConfigChange} palette={palette} setPalette={setPalette} /> :
+                <CourseConfig courses={courses} onCourseChange={onCourseChange} palette={palette} />
             }
           </Card>
         </>

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import type { Course } from "@/lib/Types";
+import type { Course, Palette } from "@/lib/Types";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import {
@@ -23,9 +23,12 @@ const Swatch = ({ color }: why) => {
 interface CourseConfigProps {
   courses: Course[];
   onCourseChange?: (courses: Course[]) => void;
+  palette: Palette;
 }
 
-const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
+const CourseConfig = ({ courses, onCourseChange, palette }: CourseConfigProps) => {
+
+  console.log(`[COURSECONFIG] palette: ${palette.name}, ${palette.colors}`)
 
   const fileInput = useRef<HTMLInputElement>(null);
   const onInputClick = () => {
@@ -92,7 +95,7 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
   const i = 0;
 
   const courseList = courses.map((course: Course) => (
-    <Card key={`course.name ${i + 1}`} className="p-4 flex flex-col gap-2">
+    <Card key={`${course.name} ${i + 1}`} className="p-4 flex flex-col gap-2">
       <div className="flex items-center justify-between gap-2">
         <div><CardTitle className="tracking-normal font-normal text-md">
           <p>{course.name}</p>
@@ -109,7 +112,7 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
         }}>
           Delete
         </Button>
-        <CourseDialog variant="edit" course={course} pushEdit={(c: Course) => {
+        <CourseDialog variant="edit" course={course} palette={palette} pushEdit={(c: Course) => {
           if (onCourseChange) {
             const temp = [...courses];
             const index = temp.findIndex((e) => e.name === course.name);
@@ -133,7 +136,7 @@ const CourseConfig = ({ courses, onCourseChange }: CourseConfigProps) => {
             if (onCourseChange) {
               onCourseChange([...courses, c]);
             }
-          }} />
+          }} palette={palette} />
           <div className="w-full flex gap-2">
             <Button variant="destructive" className="w-full p-2" onClick={clearCourses}>
               Clear

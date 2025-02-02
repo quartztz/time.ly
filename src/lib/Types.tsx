@@ -38,3 +38,10 @@ export const courseSchema = z.object({
 });
 
 export type Course = z.infer<typeof courseSchema>;
+
+export const paletteSchema = z.object({
+  name: z.string().min(1, "Palette name cannot be empty"),
+  colors: z.array(z.string().min(1))
+})
+
+export type Palette = z.infer<typeof paletteSchema>;

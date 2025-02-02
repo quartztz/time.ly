@@ -1,4 +1,4 @@
-import { courseSchema, type Course } from "@/lib/Types";
+import { courseSchema, type Course, type Palette } from "@/lib/Types";
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -33,11 +33,13 @@ import {
 import { daysOfWeek } from "@/lib/Common";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import DeleteIcon from "./icons/DeleteIcon";
+import { TwitterPicker } from "react-color";
 
 interface CourseDialogProps {
   course: Course;
   pushEdit: (newCourse: Course) => void;
   variant: "create" | "edit";
+  palette: Palette;
 }
 
 interface CourseFormProps {
@@ -45,9 +47,10 @@ interface CourseFormProps {
   pushEdit: (newCourse: Course) => void;
   variant: "create" | "edit";
   closeDialog: () => void;
+  palette: Palette;
 }
 
-const CourseForm = ({ course, pushEdit, variant, closeDialog: closeDialog }: CourseFormProps) => {
+const CourseForm = ({ course, pushEdit, variant, closeDialog, palette }: CourseFormProps) => {
   const form = useForm<Course>({
     resolver: zodResolver(courseSchema),
     defaultValues: course
@@ -130,14 +133,19 @@ const CourseForm = ({ course, pushEdit, variant, closeDialog: closeDialog }: Cou
                 {
                   form.formState.errors.color ?
                     <FormMessage>{form.formState.errors.color?.message}</FormMessage> :
-                    <FormDescription className="font-normal">The color of this course's timeslots.</FormDescription>
+                    <FormDescription className="font-normal">The color of this course's time slots.</FormDescription>
                 }
               </div>
-              <FormControl {...field}>
-                <input
-                  id={field.name}
-                  className="w-full rounded border border-slate-200 p-2"
-                  {...field} />
+              <FormControl>
+                <div>
+                  <TwitterPicker
+                    color={field.value}
+                    colors={palette.colors}
+                    triangle="hide"
+                    width="100%"
+                    onChange={(color) => field.onChange(color.hex)}
+                  />
+                </div>
               </FormControl>
             </FormItem>
           )}
@@ -282,7 +290,7 @@ const CourseForm = ({ course, pushEdit, variant, closeDialog: closeDialog }: Cou
   );
 }
 
-const CourseDialog = ({ course, pushEdit, variant }: CourseDialogProps) => {
+const CourseDialog = ({ course, pushEdit, variant, palette }: CourseDialogProps) => {
   const [open, setOpen] = useState(false);
   const closeDialog = () => setOpen(false);
 
@@ -306,7 +314,7 @@ const CourseDialog = ({ course, pushEdit, variant }: CourseDialogProps) => {
             }
           </DialogDescription>
         </DialogHeader>
-        <CourseForm course={course} closeDialog={closeDialog} pushEdit={pushEdit} variant={variant} />
+        <CourseForm course={course} closeDialog={closeDialog} pushEdit={pushEdit} variant={variant} palette={palette} />
         <DialogClose />
       </DialogContent>
     </Dialog>

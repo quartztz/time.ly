@@ -1,14 +1,17 @@
-import type { CalendarConfig } from "@/lib/Types";
+import type { CalendarConfig, Palette } from "@/lib/Types";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "./ui/checkbox";
+import paletteData from '@/assets/palettes.json';
 
 interface GeneralConfigProps {
   onConfigChange?: (config: CalendarConfig) => void;
   config: CalendarConfig;
+  palette: Palette;
+  setPalette: (palette: Palette) => void;
 }
 
-const GeneralConfig = ({ onConfigChange, config }: GeneralConfigProps) => {
+const GeneralConfig = ({ onConfigChange, config, palette, setPalette }: GeneralConfigProps) => {
 
   const dayToInt: { [key: string]: number } = { // ew
     "Monday": 1,
@@ -45,7 +48,7 @@ const GeneralConfig = ({ onConfigChange, config }: GeneralConfigProps) => {
             <SelectContent>
               {
                 Object.keys(dayToInt).map((day) => (
-                  <SelectItem value={day}>{day}</SelectItem>
+                  <SelectItem key={day} value={day}>{day}</SelectItem>
                 ))
               }
             </SelectContent>
@@ -66,7 +69,7 @@ const GeneralConfig = ({ onConfigChange, config }: GeneralConfigProps) => {
             </SelectTrigger>
             <SelectContent>
               {["1", "3", "5", "7"].map((dayIdx) => (
-                <SelectItem value={dayIdx}>{dayIdx}</SelectItem>
+                <SelectItem key={dayIdx} value={dayIdx}>{dayIdx}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -105,6 +108,25 @@ const GeneralConfig = ({ onConfigChange, config }: GeneralConfigProps) => {
               ...config,
               showHours: value ? true : false
             })} />
+        </div>
+        <div className="flex justify-start h-full items-center">Calendar Palette</div>
+        <div className="w-full flex justify-end p-2">
+          <Select
+            defaultOpen={false}
+            defaultValue={palette.name}
+            onValueChange={(value) => setPalette(paletteData.find((p) => p.name === value) || palette)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={palette.name} />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                paletteData.map((palette, idx) => (
+                  <SelectItem key={palette.name} value={palette.name}>{palette.name}</SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
         </div>
       </CardContent>
     </>

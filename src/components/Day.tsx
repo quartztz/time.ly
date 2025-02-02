@@ -14,7 +14,7 @@ export const DayComponent = (
     .sort((a, b) => a.slot.startTime - b.slot.startTime);
 
   return (
-    <div id="day" className="w-full h-full flex flex-col px-2 divide-y-[1px] divide-y-slate-50">
+    <div id="day" key={name} className="w-full h-full flex flex-col px-2 divide-y-[1px] divide-y-slate-50">
       <div className="w-full h-14 flex justify-center items-center">
         {name}
       </div>

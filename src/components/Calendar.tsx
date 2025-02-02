@@ -42,7 +42,7 @@ const Calendar = ({ config, courses }: CalendarProps) => {
               </div>
               <div id="hours-flex" className="h-full flex flex-col py-2 divide-y-[1px] divide-y-slate-50">
                 {hours.map((e) => (
-                  <div className="w-full h-full flex justify-center items-start">
+                  <div key={e} className="w-full h-full flex justify-center items-start">
                     {e}:00
                   </div>
                 ))}

@@ -34,7 +34,11 @@ const TimeSlotComponent = (
   }
 
   return (
-    <div style={style} className="flex flex-col items-start justify-start absolute rounded p-1">
+    <div
+      style={style}
+      key={`${course.name} ${slot.day} ${slot.startTime}`}
+      className="flex flex-col items-start justify-start absolute rounded p-1">
+
       <div className="text-white font-semibold leading-5 text-sm">{course.name}</div>
       <div className="text-white text-xs">{slot.kind}</div>
     </div>
