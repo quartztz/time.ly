@@ -12,7 +12,7 @@ built in react with shadcn/ui.
 ### contributing
 
 open an issue, then fork and submit a pull request. be respectful, write clean code, 
-and wait for reviews.
+and wait for reviews. :3
 
 ### todo
 
