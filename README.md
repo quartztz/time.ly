@@ -1,6 +1,6 @@
 ## time.ly
 
-find it on time.ly.quartztz.com
+find it on (time.ly.quartztz.com)[https://time.ly.quartztz.com]
 
 timetable generator. to build and run, clone, `cd` into and run
 
