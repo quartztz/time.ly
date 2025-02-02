@@ -16,10 +16,15 @@ and wait for reviews.
 
 ### todo
 
-- [ ] palettes
+- [x] palettes
   - [ ] automatic text contrast detection
   - [ ] write 4/5 main palettes (warm, cool, monochrome, etc.)
-  - [ ] intuitive color choice for course
+  - [x] intuitive color choice for course
+- [ ] keyboard inputs
+  - [ ] up-down to move startTime
+  - [ ] shift-up-down to move endTime
+  - [ ] left-right to add/remove days
+  - [ ] shift-left-right to move startDay
 - [ ] better logo
   - [ ] better favicon
 - [ ] footer
