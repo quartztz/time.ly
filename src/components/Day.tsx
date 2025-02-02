@@ -18,7 +18,7 @@ export const DayComponent = (
       <div className="w-full h-14 flex justify-center items-center">
         {name}
       </div>
-      <div className="w-full h-full relative">
+      <div className="w-full h-full relative overflow-clip">
         {
           (() => {
             let cnt_conflicts = 0;
