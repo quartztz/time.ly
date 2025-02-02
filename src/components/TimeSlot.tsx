@@ -58,10 +58,12 @@ const TimeSlotComponent = (
     <div
       style={style}
       key={`${course.name} ${slot.day} ${slot.startTime}`}
-      className="flex flex-col items-start justify-start absolute rounded p-1">
+      className="absolute rounded p-1">
 
-      <div className={`${textColor(course.color)} font-semibold leading-5 text-sm`}>{course.name}</div>
-      <div className={`${textColor(course.color)} text-white text-xs`}>{slot.kind}</div>
+      <div className={`${textColor(course.color)} flex flex-col justify-start items-start h-full w-full text-ellipsis overflow-clip`}>
+        <span className="text-xs text-ellipsis font-semibold">{course.name}</span>
+        <span className="text-xs italic">{slot.kind}</span>
+      </div>
     </div>
   );
 }
