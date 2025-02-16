@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardDescription,
   CardFooter,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import CourseDialog from "./EditCourse";
 
@@ -17,8 +17,13 @@ interface why {
 }
 
 const Swatch = ({ color }: why) => {
-  return <div style={{ backgroundColor: color, }} className="min-w-6 min-h-6 rounded p-2" />;
-}
+  return (
+    <div
+      style={{ backgroundColor: color }}
+      className="min-w-6 min-h-6 rounded p-2"
+    />
+  );
+};
 
 interface CourseConfigProps {
   courses: Course[];
@@ -26,26 +31,34 @@ interface CourseConfigProps {
   palette: Palette;
 }
 
-const CourseConfig = ({ courses, onCourseChange, palette }: CourseConfigProps) => {
-
-  console.log(`[COURSECONFIG] palette: ${palette.name}, ${palette.colors}`)
+const CourseConfig = ({
+  courses,
+  onCourseChange,
+  palette,
+}: CourseConfigProps) => {
+  // console.log(`[COURSECONFIG] palette: ${palette.name}, ${palette.colors}`)
 
   const fileInput = useRef<HTMLInputElement>(null);
   const onInputClick = () => {
     fileInput.current?.click();
-  }
+  };
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length == 0) {
       return;
     }
     const file = e.target.files[0];
-    file.text().then(t => JSON.parse(t)).then(j => importCourses(j)).catch((r) => {
-      console.error(r);
-      toast("Error importing courses!", {
-        description: "An error occurred while importing courses.",
+    file
+      .text()
+      .then((t) => JSON.parse(t))
+      .then((j) => importCourses(j))
+      .catch((r) => {
+        console.error(r);
+        toast("Error importing courses!", {
+          description: "An error occurred while importing courses.",
+        });
       });
-    });
-  }
+  };
+
   const importCourses = (data: Course[]) => {
     if (onCourseChange) {
       onCourseChange(data);
@@ -53,43 +66,46 @@ const CourseConfig = ({ courses, onCourseChange, palette }: CourseConfigProps) =
     toast("Courses imported!", {
       description: "Your courses have been imported.",
       action: {
-        label: "Undo", onClick: () => {
+        label: "Undo",
+        onClick: () => {
           if (onCourseChange) {
             onCourseChange([]);
           }
-        }
-      }
+        },
+      },
     });
   };
   const exportCourses = () => {
     const data = JSON.stringify(courses);
-    const blob = new Blob([data], { type: 'application/json' });
+    const blob = new Blob([data], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = "courses.json";
     a.click();
     URL.revokeObjectURL(url);
-  }
+  };
   const clearCourses = () => {
     const temp = [...courses];
     if (onCourseChange) {
       onCourseChange([]);
     }
     toast("Courses cleared!", {
-      description: "Restart from a blank slate.", action: {
-        label: "Undo", onClick: () => {
+      description: "Restart from a blank slate.",
+      action: {
+        label: "Undo",
+        onClick: () => {
           if (onCourseChange) {
             onCourseChange(temp);
           }
-        }
-      }
+        },
+      },
     });
-  }
+  };
   const emptyCourse: Course = {
     name: "",
     color: "#000000",
-    slots: []
+    slots: [],
   };
 
   const i = 0;
@@ -97,29 +113,39 @@ const CourseConfig = ({ courses, onCourseChange, palette }: CourseConfigProps) =
   const courseList = courses.map((course: Course) => (
     <Card key={`${course.name} ${i + 1}`} className="p-4 flex flex-col gap-2">
       <div className="flex items-center justify-between gap-2">
-        <div><CardTitle className="tracking-normal font-normal text-md">
-          <p>{course.name}</p>
-        </CardTitle>
+        <div>
+          <CardTitle className="tracking-normal font-normal text-md">
+            <p>{course.name}</p>
+          </CardTitle>
           <CardDescription>{course.slots.length} timeslots.</CardDescription>
         </div>
         <Swatch color={course.color} />
       </div>
       <CardFooter className="w-full flex justify-between p-0">
-        <Button variant="destructive" className="p-2" onClick={() => {
-          if (onCourseChange) {
-            onCourseChange(courses.filter((c) => c.name !== course.name));
-          }
-        }}>
+        <Button
+          variant="destructive"
+          className="p-2"
+          onClick={() => {
+            if (onCourseChange) {
+              onCourseChange(courses.filter((c) => c.name !== course.name));
+            }
+          }}
+        >
           Delete
         </Button>
-        <CourseDialog variant="edit" course={course} palette={palette} pushEdit={(c: Course) => {
-          if (onCourseChange) {
-            const temp = [...courses];
-            const index = temp.findIndex((e) => e.name === course.name);
-            temp[index] = c;
-            onCourseChange(temp);
-          }
-        }} />
+        <CourseDialog
+          variant="edit"
+          course={course}
+          palette={palette}
+          pushEdit={(c: Course) => {
+            if (onCourseChange) {
+              const temp = [...courses];
+              const index = temp.findIndex((e) => e.name === course.name);
+              temp[index] = c;
+              onCourseChange(temp);
+            }
+          }}
+        />
       </CardFooter>
     </Card>
   ));
@@ -132,19 +158,36 @@ const CourseConfig = ({ courses, onCourseChange, palette }: CourseConfigProps) =
       </CardHeader>
       <CardContent className="flex flex-col gap-4 overflow-auto">
         <div className="w-full flex flex-col items-center justify-between gap-2 py-2">
-          <CourseDialog variant="create" course={emptyCourse} pushEdit={(c: Course) => {
-            if (onCourseChange) {
-              onCourseChange([...courses, c]);
-            }
-          }} palette={palette} />
+          <CourseDialog
+            variant="create"
+            course={emptyCourse}
+            pushEdit={(c: Course) => {
+              if (onCourseChange) {
+                onCourseChange([...courses, c]);
+              }
+            }}
+            palette={palette}
+          />
           <div className="w-full flex gap-2">
-            <Button variant="destructive" className="w-full p-2" onClick={clearCourses}>
+            <Button
+              variant="destructive"
+              className="w-full p-2"
+              onClick={clearCourses}
+            >
               Clear
             </Button>
-            <Button variant="ghost" className="w-full p-2" onClick={exportCourses}>
+            <Button
+              variant="ghost"
+              className="w-full p-2"
+              onClick={exportCourses}
+            >
               Export
             </Button>
-            <Button variant="ghost" className="w-full p-2" onClick={onInputClick}>
+            <Button
+              variant="ghost"
+              className="w-full p-2"
+              onClick={onInputClick}
+            >
               <input
                 ref={fileInput}
                 type="file"
@@ -157,9 +200,9 @@ const CourseConfig = ({ courses, onCourseChange, palette }: CourseConfigProps) =
           </div>
         </div>
         {courseList}
-      </CardContent >
+      </CardContent>
     </>
-  )
+  );
 };
 
 export default CourseConfig;

@@ -1,23 +1,24 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export type CalendarConfig = {
-  startHour: number,
-  endHour: number,
-  startDay: number,
-  numberOfDays: number,
-  showHours: boolean,
-}
+  startHour: number;
+  endHour: number;
+  startDay: number;
+  numberOfDays: number;
+  showHours: boolean;
+};
 
-export type TimeSlotKind = 'lecture' | 'project' | 'exercises';
+export type TimeSlotKind = "lecture" | "project" | "exercises";
 
-export type TimeSlotStyle = { // all strings should be validated for correct format.
-  width: string,
-  height: string,
-  top: string,
-  left: string,
-  padding: string,
-  background: string, // as defined by course color
-  filter: string,
+export type TimeSlotStyle = {
+  // all strings should be validated for correct format.
+  width: string;
+  height: string;
+  top: string;
+  left: string;
+  padding: string;
+  background: string; // as defined by course color
+  filter: string;
 };
 
 const slotSchema = z.object({
@@ -26,6 +27,8 @@ const slotSchema = z.object({
   day: z.coerce.number().min(0).max(6),
   kind: z.string(),
   conflicts: z.coerce.number(),
+  // used for rendering, should be validated to be less than conflicts
+  col_index: z.coerce.number(),
 });
 
 export type TimeSlot = z.infer<typeof slotSchema>;
@@ -41,7 +44,7 @@ export type Course = z.infer<typeof courseSchema>;
 
 export const paletteSchema = z.object({
   name: z.string().min(1, "Palette name cannot be empty"),
-  colors: z.array(z.string().min(1))
-})
+  colors: z.array(z.string().min(1)),
+});
 
 export type Palette = z.infer<typeof paletteSchema>;
